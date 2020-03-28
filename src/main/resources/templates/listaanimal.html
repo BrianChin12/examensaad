@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Todos los animales</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="StyleSheet" th:href="@{/estilo.css}" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+</head>
+
+<body background="https://png.pngtree.com/element_our/png_detail/20180918/dogs-head-png_100904.jpg">
+    <div class="container my-2">
+    <div class="card bg-light mb-3">
+        <div class="card-header">Sistema de adopcion de animales domesticos</div>
+        <div class="card-body">
+        <div th:switch="${animal}" class="container">
+            <p>
+                <a href="/newAnimal" class="btn btn-dark">
+                <i class="fas fa-user-plus ml-2"></i> Registrar Animal</a>
+                <a href="/listAdopcion" class="btn btn-info">
+                    <i class="far fa-check-circle"></i> Animales Adoptados</a>
+            </p>
+            <div>
+                <h2 th:case="null">No hay animales guardados</h2>
+                <div th:case="*" >
+                    <table class="table table-hover table-dark">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Raza</th>
+                                <th>Color</th>
+                                <th>Tipo de pelaje</th>
+                                <th>Fecha de nacimiento</th>
+                                <th>Vacunas</th>
+                                <th>Estado de adopcion</th>
+                                <th>Foto</th>
+                                <th>Adoptar</th>
+                                <th>Editar</th>
+                                <th>Borrar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="animal : ${animal}">
+                                <td th:text="${animal.tipo}"></td>
+                                <td th:text="${animal.raza}"></td>
+                                <td th:text="${animal.color}"></td>
+                                <td th:text="${animal.tipo_pelaje}"></td>
+                                <td th:text="${animal.f_nacimiento}"></td>
+                                <td th:text="${animal.vacunas}"></td>
+                                <td th:text="${animal.estado}"></td>
+                                <td >
+                                <img th:src="${animal.foto}" style="height: 100px">
+                                </td>
+                                <td>
+                                    <a th:href="@{/adopt/{id}(id=${animal.id})}"  class="btn btn-outline-success">
+                                        <i class="fas fa-paw"></i>
+                                    </a>
+                                </td>
+                                <td >
+                                    <a th:href="@{/edit/{id}(id=${animal.id})}" class="btn btn-outline-warning">
+                                        <i class="fas fa-edit"></i>                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/delete/{id}(id=${animal.id})}"  class="btn btn-outline-danger">
+                                        <i class="fas fa-minus-circle"></i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>
